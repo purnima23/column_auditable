@@ -36,3 +36,7 @@ You can pass :audit_whodunnit and :audit_comment in the instance
   audit = user.audits.last
   audit.whodunnit # => 'Alice'
   audit.comment # => 'Testing'
+  
+To populate audits record to your existing db
+
+  rake column_auditable:populate_for model=user
