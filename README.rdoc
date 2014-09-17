@@ -1,0 +1,38 @@
+== ColumnAuditable
+
+This project rocks and uses MIT-LICENSE.
+
+To install the gem, you need to run
+
+  rails generate column_auditable:install
+  rake db:migrate
+  
+== Usage
+
+Add this to your models
+
+  audited audited_name: :username
+  
+Whenever a user is created, or updated, a new audit is created.
+
+  user = User.create(username: 'Bob')
+  user.audits.count # => 1
+  user.update_attribute(:username, 'Bobby')
+  user.audits.count # => 2
+  
+Scope
+
+  user.only_audited_name(:username) # select only audited_name equal to :username
+  user.only_audited_value('Bob') # select only audited_value equal to 'Bob'
+  
+Optional
+
+You can pass :audit_whodunnit and :audit_comment in the instance
+
+  user.audit_comment = 'Testing'
+  user.audit_whodunnit = 'Alice'
+  user.username = 'Ahmand'
+  user.save # => true
+  audit = user.audits.last
+  audit.whodunnit # => 'Alice'
+  audit.comment # => 'Testing'
