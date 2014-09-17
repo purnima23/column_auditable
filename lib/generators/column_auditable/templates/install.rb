@@ -1,4 +1,4 @@
-class CreateColumnAudits < ActiveRecord::Migration
+class InstallColumnAuditable < ActiveRecord::Migration
   def self.up
     create_table :column_audits, force: true do |t|
       t.column :auditable_id, :integer

@@ -21,7 +21,7 @@ module ColumnAuditable
       end
 
       def copy_migration
-        migration_template 'install.rb', 'db/migrate/install_column_audtiable.rb'
+        migration_template 'install.rb', 'db/migrate/install_column_auditable.rb'
       end
     end
   end
