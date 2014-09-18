@@ -51,5 +51,13 @@ describe ColumnAuditable::Auditor do
       audit = ColumnAuditable::Audit.last
       audit.whodunnit.should eq('changer')
     end
+    
+    it "should not create new audit if audited_value not changed" do
+      user.name = 'cherwei' # changed
+      user.username = 'cherwei' # not changed
+      expect do
+        user.save
+      end.not_to change(ColumnAuditable::Audit, :count)
+    end
   end
 end
