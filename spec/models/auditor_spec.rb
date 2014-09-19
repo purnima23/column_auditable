@@ -14,6 +14,13 @@ describe ColumnAuditable::Auditor do
       audit.audited_name.should eq('username')
       audit.audited_value.should eq('cherwei')
     end
+    
+    it "should not create new audit if audited_value is empty" do
+      user = Models::User.new(name: 'soh cher wei')
+      expect do
+        user.save
+      end.not_to change(ColumnAuditable::Audit, :count)
+    end
   end
   
   describe 'auditable update' do
