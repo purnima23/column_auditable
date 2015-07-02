@@ -4,6 +4,7 @@ describe ColumnAuditable::Auditor do
   let(:user) {Models::User.create(name: 'soh cher wei', username: 'cherwei')}
   
   describe 'auditable create' do
+
     it "should create new audit" do
       expect do
         user
@@ -20,6 +21,19 @@ describe ColumnAuditable::Auditor do
       expect do
         user.save
       end.not_to change(ColumnAuditable::Audit, :count)
+    end
+
+    it "should create cleared comment when audit is blank" do
+      comment = "clear comment"
+      user.username  = ''
+      user.audit_comment = comment
+      expect do 
+          user.save
+      end.to change(ColumnAuditable::Audit, :count).by(1)
+
+        audit = ColumnAuditable::Audit.last
+        audit.comment.create("CLEARED")
+      end
     end
   end
   
@@ -67,17 +81,5 @@ describe ColumnAuditable::Auditor do
       end.not_to change(ColumnAuditable::Audit, :count)
     end
     
-    it "should create cleared comment when audit is blank" do
-      comment = "clear comment"
-      user.username  = ''
-      user.audit_comment = comment
-      expect do 
-        user.save
-      end.to change(ColumnAuditable::Audit, :count).by(1)
-      
-      audit = ColumnAuditable::Audit.last
-      audit.comment.should eq("CLEARED")
-    end
-  end
 
 end
