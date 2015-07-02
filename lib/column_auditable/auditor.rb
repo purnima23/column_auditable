@@ -16,7 +16,7 @@ module ColumnAuditable
         has_many :audits, as: :auditable, class_name: "ColumnAuditable::Audit"
       
         after_create :audit_create, unless: Proc.new{|a| a.send("#{a.audited_name}").blank?}
-        before_update :audit_update, if: Proc.new{|a| a.send("#{a.audited_name}_changed?") && !a.send("#{a.audited_name}").blank?}
+        before_update :audit_update, if: Proc.new{|a| a.send("#{a.audited_name}_changed?") #&& !a.send("#{a.audited_name}").blank?}
         
         include ColumnAuditable::Auditor::AuditedInstanceMethods
       end

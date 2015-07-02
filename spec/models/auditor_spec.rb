@@ -67,12 +67,12 @@ describe ColumnAuditable::Auditor do
       end.not_to change(ColumnAuditable::Audit, :count)
     end
     
-    it "should not create new audit if audited_value changed to empty" do
-      user.name = 'cherwei' # changed
-      user.username = '' # not changed
-      expect do
-        user.save
-      end.not_to change(ColumnAuditable::Audit, :count)
-    end
-  end
+  #   it "should aceept new audit if audited_value changed to empty" do
+  #     user.name = 'cherwei' # changed
+  #     user.username = '' # not changed
+  #     expect do
+  #       user.save
+  #     end.not_to change(ColumnAuditable::Audit, :count)
+  #   end
+  # end
 end
