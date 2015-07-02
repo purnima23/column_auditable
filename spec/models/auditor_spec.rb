@@ -67,4 +67,14 @@ describe ColumnAuditable::Auditor do
       end.not_to change(ColumnAuditable::Audit, :count)
     end
     
+    it "should create cleared comment when audit is blank" do
+      comment = "clear comment"
+      user.username  = ''
+      expect do 
+        user.save
+      end.to change(ColumnAuditable::Audit, :count).by(1)
+      audit.comment.should eq("CLEARED")
+    end
+  end
+
 end
